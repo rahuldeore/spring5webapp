@@ -10,8 +10,10 @@ package com.springframework.spring5webapp.bootstrap;
 
 import com.springframework.spring5webapp.model.Author;
 import com.springframework.spring5webapp.model.Book;
+import com.springframework.spring5webapp.model.Publisher;
 import com.springframework.spring5webapp.repositories.AuthorRepositories;
 import com.springframework.spring5webapp.repositories.BookRepository;
+import com.springframework.spring5webapp.repositories.PublisherRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -24,10 +26,12 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     private AuthorRepositories authorRepositories;
     private BookRepository bookRepository;
+    private PublisherRepository publisherRepository;
 
-    public DevBootstrap(AuthorRepositories authorRepositories, BookRepository bookRepository) {
+    public DevBootstrap(AuthorRepositories authorRepositories, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepositories = authorRepositories;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -39,20 +43,26 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
         //Eric
         Author eric = new Author("Eric","Evans");
-        Book ddd = new Book("Domain Driven Development","Harper Collins","1234");
+        Publisher harper = new Publisher("Harper Collins","New York", "New York", "NY", "10001");
+        Book ddd = new Book("Domain Driven Development",harper,"1234");
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
 
         authorRepositories.save(eric);
+        publisherRepository.save(harper);
         bookRepository.save(ddd);
+
 
         //Rod
         Author rod = new Author("Rod","Jonhson");
-        Book noejb = new Book("J2EE Developement without EJB","Worx","23445");
+        Publisher worx= new Publisher("Worx", "New York", "New York", "NY", "10001");
+        Book noejb = new Book("J2EE Developement without EJB", worx,"23445");
         rod.getBooks().add(noejb);
         noejb.getAuthors().add(rod);
 
-        authorRepositories.save(eric);
+        authorRepositories.save(rod);
+        publisherRepository.save(worx);
         bookRepository.save(noejb);
+
     }
 }
