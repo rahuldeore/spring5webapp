@@ -29,6 +29,9 @@ public class Publisher {
     private String state;
     private String zip;
 
+    public Publisher() {
+    }
+
     public Publisher(String publisherName, String addLine1, String city, String state, String zip) {
         this.publisherName = publisherName;
         this.addLine1 = addLine1;
